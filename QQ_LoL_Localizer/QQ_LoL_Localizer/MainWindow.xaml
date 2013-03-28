@@ -1,0 +1,21 @@
+﻿<Window x:Class="QQ_LoL_Localizer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="LoL TCLS English Localizer" Height="312" Width="491" ResizeMode="CanMinimize">
+    <Window.Resources>
+    </Window.Resources>
+    <Grid Margin="10">
+        <DataGrid Name="DgFiles" AutoGenerateColumns="False" Height="189" VerticalAlignment="Top" MouseDoubleClick="DgFiles_OnMouseDoubleClick" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="File path" Binding="{Binding FilePath, Mode=OneWay}" />
+                <DataGridCheckBoxColumn Header="Is Fixed" IsReadOnly="True" Binding="{Binding IsFixed, Mode=OneWay}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Name="BtnFix" Content="Fix Selected" Margin="86,220,0,0" Height="21" VerticalAlignment="Top" HorizontalAlignment="Left" Width="105"/>
+        <Button x:Name="BtnFixAll" Content="Fix All" Margin="86,194,0,0" Height="21" VerticalAlignment="Top" HorizontalAlignment="Left" Width="105"/>
+        <Button x:Name="BtnRestoreSelected" Content="Restore Selected" Margin="196,220,0,0" Height="21" VerticalAlignment="Top" HorizontalAlignment="Left" Width="105"/>
+        <Button x:Name="BtnRestoreAll" Content="Restore All" Margin="196,194,0,0" Height="21" VerticalAlignment="Top" HorizontalAlignment="Left" Width="105"/>
+        <Button Content="Refresh" Name="BtnRefresh" HorizontalAlignment="Left" Margin="306,194,0,0" VerticalAlignment="Top" Width="75" Height="47"/>
+        <ProgressBar Name="PgbApp" Value="0" IsIndeterminate="{Binding IsWorking}" HorizontalAlignment="Left" Height="10" Margin="86,246,0,0" VerticalAlignment="Top" Width="295"/>
+    </Grid>
+</Window>
