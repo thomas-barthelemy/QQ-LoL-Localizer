@@ -16,8 +16,9 @@ namespace QQ_LoL_Localizer.QQFileModels
                     if (!File.Exists(FilePath))
                         return (IsFileFixed = false);
 
-                    var text = File.ReadAllLines(FilePath);
-                    IsFileFixed = text.Count(s => s.Contains("en_US")) == 1;
+                    var fileEnUs = new FileInfo(FilePath);
+                    var fileZhCn = new FileInfo(FilePath.Replace("en_US", "zh_CN"));
+                    IsFileFixed = fileEnUs.Length == fileZhCn.Length;
                 }
                 return IsFileFixed.Value;
             }
