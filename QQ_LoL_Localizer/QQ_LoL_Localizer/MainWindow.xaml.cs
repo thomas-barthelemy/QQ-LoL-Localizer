@@ -18,7 +18,8 @@ namespace QQ_LoL_Localizer
         public MainWindow()
         {
             if (string.IsNullOrWhiteSpace(Settings.Default.Path) || !Directory.Exists(Settings.Default.Path))
-                SetLoLPath();
+                if (!SetLoLPath())
+                    Application.Current.Shutdown();
 
             InitializeComponent();
             InitCommands();
@@ -61,6 +62,7 @@ namespace QQ_LoL_Localizer
             BtnRestoreSelected.Command = new RestoreSelectedCommand(DgFiles);
             BtnRestoreAll.Command = new RestoreAllCommand(DgFiles);
             BtnRefresh.Command = new RefreshCommand(DgFiles);
+            BtnPlay.Command = new RunGameCommand(null);
         }
 
         #endregion

@@ -29,11 +29,12 @@ namespace QQ_LoL_Localizer
                     {
                         new AirLocaleFile(),
                         new AirLolFile(),
+                        new AirFontsFile(),
                         new FmodAudioFile(),
                         new FmodVoBankFile(),
                         new FontsMapFile(),
                         new GameLocaleFile(),
-                        new MenuFontConfig()
+                        new MenuFontConfig(),
                     });
             }
         }
