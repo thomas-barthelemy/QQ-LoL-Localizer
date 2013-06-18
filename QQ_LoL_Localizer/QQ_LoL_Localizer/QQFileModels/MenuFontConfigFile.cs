@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace QQ_LoL_Localizer.QQFileModels
 {
-    class MenuFontConfig : BackableFile
+    class MenuFontConfigFile : BackableFile
     {
         public override bool? IsFixed
         {

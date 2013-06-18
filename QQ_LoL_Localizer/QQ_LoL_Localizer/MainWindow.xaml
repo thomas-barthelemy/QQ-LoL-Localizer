@@ -1,55 +1,129 @@
 ﻿<Window x:Class="QQ_LoL_Localizer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="LoL TCLS English Localizer" Height="360" Width="500" MinHeight="360" MinWidth="500" Icon="tray.ico">
-    <Window.Resources>
-    </Window.Resources>
-    <StackPanel>
-        <DataGrid Name="DgFiles" AutoGenerateColumns="False" MinHeight="200" VerticalAlignment="Top" MouseDoubleClick="DgFiles_OnMouseDoubleClick" >
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="File path" Binding="{Binding FilePath, Mode=OneWay}" />
-                <DataGridCheckBoxColumn Header="Is Fixed" IsReadOnly="True" Binding="{Binding IsFixed, Mode=OneWay}" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <StackPanel Margin="5" VerticalAlignment="Center">
-                <Button Name="BtnFix" Content="Fix Selected" Height="21" Width="105"/>
-                <Button x:Name="BtnFixAll" Content="Fix All" Height="21" Width="105"/>
-            </StackPanel>
-            <StackPanel Margin="5" VerticalAlignment="Center">
-                <Button x:Name="BtnRestoreSelected" Content="Restore Selected" Height="21" Width="105"/>
-                <Button x:Name="BtnRestoreAll" Content="Restore All" Height="21" Width="105"/>
-            </StackPanel>
-            <Button Content="Refresh" Name="BtnRefresh" Width="75" Height="42" Margin="5" />
-            <Button Name="BtnPlay" Height="100" BorderThickness="0" Background="DarkRed" >
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Grid>
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="commonStates">
-                                    <VisualState x:Name="MouseOver">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetName="overlay" Storyboard.TargetProperty="Opacity" RepeatBehavior="Forever" >
-                                                <LinearDoubleKeyFrame KeyTime="0:0:0.0" Value="0" />
-                                                <LinearDoubleKeyFrame KeyTime="0:0:0.5" Value="0.2" />
-                                                <LinearDoubleKeyFrame KeyTime="0:0:1.0" Value="0" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Normal" />
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                            <ContentPresenter />
-                            <Ellipse x:Name="overlay" Fill="{TemplateBinding Background}" Opacity="0"  Margin="4">
-                            </Ellipse>
-                        </Grid>
-                    </ControlTemplate>
-                </Button.Template>
-                <Image Source="Resources/lol_button.png" ></Image>
-            </Button>
-        </StackPanel>
-        <Grid Margin="10">
-            <ProgressBar Name="PgbApp" Value="0" IsIndeterminate="{Binding IsWorking}" Height="10"/>
-        </Grid>
-    </StackPanel>
+        Title="{Binding Title}" Height="510" Width="510" MinHeight="360" MinWidth="500" Icon="tray.ico"
+        DataContext="{Binding RelativeSource={x:Static RelativeSource.Self}}"
+        Loaded="MainWindow_OnLoaded">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Localizer">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="8*" />
+                        <RowDefinition Height="5*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <!-- Regular View -->
+                    <Grid Name="BaseView">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                                        HorizontalAlignment="Center">
+                                <Label Content="Your game is" Style="{StaticResource BaseViewLabel}" />
+                                <Label Name="BaseStatusLabel"
+                                       Content="{Binding IsGameFixed, Converter={StaticResource TextStatusConverter}}"
+                                       Style="{StaticResource BaseViewLabel}"
+                                       Foreground="{Binding IsGameFixed, Converter={StaticResource ColorConverter}}" />
+                            </StackPanel>
+                            <Button Content="Fix now" BorderThickness="0" FontSize="20" FontFamily="Segoe UI"
+                                    Visibility="{Binding IsGameFixed, Converter={StaticResource VisibilityConverter}, ConverterParameter=true}" />
+                        </StackPanel>
+                    </Grid>
+                    <!-- Advanced View -->
+                    <Grid Name="AdvancedView"
+                          Visibility="{Binding IsAdvancedView, Converter={StaticResource VisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="6*" />
+                            <RowDefinition Height="2*" />
+                        </Grid.RowDefinitions>
+                        <ListView Name="FilesListView" ItemsSource="{Binding FixableFiles}"
+                                  ItemTemplate="{StaticResource FileItemTemplate}" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1"
+                                    Visibility="{Binding IsAdvancedView, Converter={StaticResource VisibilityConverter}}">
+                            <StackPanel Margin="25,5" VerticalAlignment="Center">
+                                <Button Name="BtnFixSelected" Content="Fix Selected" Height="21" Width="105"
+                                        Command="{StaticResource FixSelectedCommand}"
+                                        CommandParameter="{Binding ElementName=FilesListView}" />
+                                <Button x:Name="BtnFixAll" Content="Fix All" Height="21" Width="105"
+                                        Command="{StaticResource FixAllCommand}"
+                                        CommandParameter="{Binding ElementName=FilesListView}" />
+                            </StackPanel>
+                            <StackPanel Margin="25,5" VerticalAlignment="Center">
+                                <Button x:Name="BtnRestoreSelected" Content="Restore Selected" Height="21" Width="105"
+                                        Command="{StaticResource RestoreSelectedCommand}"
+                                        CommandParameter="{Binding ElementName=FilesListView}" />
+                                <Button x:Name="BtnRestoreAll" Content="Restore All" Height="21" Width="105"
+                                        Command="{StaticResource RestoreAllCommand}"
+                                        CommandParameter="{Binding ElementName=FilesListView}" />
+                            </StackPanel>
+                            <Button Content="Refresh" Name="BtnRefresh" Width="75" Height="21" Margin="25,5"
+                                    Command="{StaticResource RefreshCommand}"
+                                    CommandParameter="{Binding ElementName=FilesListView}" />
+                        </StackPanel>
+                    </Grid>
+                    <Button Grid.Row="1" Template="{StaticResource PlayButtonTemplate}"
+                            Command="{StaticResource RunGameCommand}"
+                            CommandParameter="{Binding BehaviorOnStartGame}" />
+                    <!-- Global status Bar -->
+                    <StatusBar Grid.Row="2">
+                        <!--<StatusBarItem Width="250">
+                            <Label x:Name="StatusLabel" />
+                        </StatusBarItem>-->
+                        <StatusBarItem HorizontalContentAlignment="Stretch">
+                            <ProgressBar x:Name="AppProgressBar" IsIndeterminate="{Binding IsWorking}"
+                                         Height="15" />
+                        </StatusBarItem>
+                    </StatusBar>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Settings">
+                <Grid HorizontalAlignment="Center">
+                    <StackPanel>
+                        <Label Content="When launching the game:" />
+                        <ComboBox Name="GameStartComboBox"
+                                  SelectedIndex="{Binding BehaviorOnStartGame, Converter={StaticResource BehaviorConverter}}">
+                            <ComboBoxItem Name="NothingOnLaunchCbItem" Content="Do Nothing" />
+                            <ComboBoxItem Name="MinimizeOnLaunchCbItem" Content="Minimize LoL Localizer" />
+                            <ComboBoxItem Name="CloseOnLaunchCbItem" Content="Close LoL Localizer" />
+                        </ComboBox>
+                        <TextBlock TextWrapping="Wrap" Width="350">Note: QQ Localizer Window will be minimized directly on launching the Lol client,
+                        the closing will only happen when the official client is running (After login and server selection).</TextBlock>
+                        <Separator />
+                        <CheckBox Name="LaunchIfFixedCheckBox"
+                                  Content="Launch LoL automatically if everything is fixed"
+                                  IsChecked="{Binding LaunchIfFixed}" />
+                        <CheckBox Name="AdvancedViewCheckBox" Content="Advanced View"
+                                  IsChecked="{Binding IsAdvancedView}" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="About">
+                <Grid>
+                    <RichTextBox VerticalAlignment="Center" BorderThickness="0" Margin="20" IsReadOnly="True" IsDocumentEnabled="True" >
+                        <FlowDocument TextAlignment="Center" FontSize="15">
+                            <Paragraph>
+                                QQ LoL localizer provides an easy tool to modify the Chinese League of Legends client (from lol.qq.com)
+                                in order to translate it in English.
+                            </Paragraph>
+                            <Paragraph>
+                                For any information on this free and open-source software, or about LoL in China, feel free to look
+                                at the original project here:
+                                <Hyperlink NavigateUri="https://qqlollocalizer.codeplex.com/" RequestNavigate="Hyperlink_OnRequestNavigate">https://qqlollocalizer.codeplex.com/</Hyperlink>
+                            </Paragraph>
+                            <Paragraph>
+                                IF you come up with any question, advice or bug you can open an issue on the project website
+                                or send me an email directly:
+                                <Hyperlink NavigateUri="mailto:dreena@free.fr" RequestNavigate="Hyperlink_OnRequestNavigate">dreena@free.fr</Hyperlink>
+                            </Paragraph>
+                            <Paragraph>
+                                Wishing you will find this tool useful
+                            </Paragraph>
+                            <Paragraph>
+                                Thomas B.
+                            </Paragraph>
+                        </FlowDocument>
+                    </RichTextBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
 </Window>

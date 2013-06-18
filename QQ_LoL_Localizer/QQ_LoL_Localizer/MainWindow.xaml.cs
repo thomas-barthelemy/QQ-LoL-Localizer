@@ -1,20 +1,30 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using Microsoft.Win32;
+using QQ_LoL_Localizer.Annotations;
 using QQ_LoL_Localizer.Commands;
 using QQ_LoL_Localizer.Properties;
 using QQ_LoL_Localizer.QQFileModels;
+using System.Linq;
 
 namespace QQ_LoL_Localizer
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow
+    public partial class MainWindow : INotifyPropertyChanged
     {
+        private Timer _timer;
+
         public MainWindow()
         {
             if (string.IsNullOrWhiteSpace(Settings.Default.Path) || !Directory.Exists(Settings.Default.Path))
@@ -22,15 +32,28 @@ namespace QQ_LoL_Localizer
                     Application.Current.Shutdown();
 
             InitializeComponent();
-            InitCommands();
 
             var version = Assembly.GetExecutingAssembly().GetName().Version;
             Title = "QQ LoL Localizer - " + version;
-            DataContext = Application.Current;
-            DgFiles.ItemsSource = Helper.Files;
+
         }
 
         #region Helpers
+
+        private void RefreshTimerTick()
+        {
+            var gameProcess = Process.GetProcessesByName("Lolclient");
+            if (gameProcess.Length > 0)
+            {
+                _timer.Change(Timeout.Infinite, 15000);
+                if(BehaviorOnStartGame == Behavior.Close)
+                    Close();
+            }
+
+            var cmd = (RefreshCommand) FindResource("RefreshCommand");
+            if (cmd.CanExecute(null))
+                cmd.Execute(FilesListView);
+        }
 
         public static bool SetLoLPath()
         {
@@ -54,33 +77,104 @@ namespace QQ_LoL_Localizer
             Settings.Default.Save();
             return true;
         }
-        
-        private void InitCommands()
+
+        #endregion
+
+        #region Dependency Properties
+        public static readonly DependencyProperty IsWorkingProperty =
+            DependencyProperty.Register("IsWorking", typeof (bool), typeof (MainWindow), new PropertyMetadata(default(bool)));
+
+        #endregion
+
+        #region Binding Properties
+
+        public ObservableCollection<IFixableFile> FixableFiles { get { return Helper.Files; } }
+
+        public bool IsGameFixed
         {
-            BtnFix.Command = new FixSelectedCommand(DgFiles);
-            BtnFixAll.Command = new FixAllCommand(DgFiles);
-            BtnRestoreSelected.Command = new RestoreSelectedCommand(DgFiles);
-            BtnRestoreAll.Command = new RestoreAllCommand(DgFiles);
-            BtnRefresh.Command = new RefreshCommand(DgFiles);
-            BtnPlay.Command = new RunGameCommand(null);
+            get { return FixableFiles.All(f => f.IsFixed.GetValueOrDefault(false)); }
+        }
+        public bool IsAdvancedView
+        {
+            get
+            {
+                return Settings.Default.IsAdvancedView;
+            }
+            set
+            {
+                if (Settings.Default.IsAdvancedView == value)
+                    return;
+                Settings.Default.IsAdvancedView = value;
+                Settings.Default.Save();
+                NotifyPropertyChanged("IsAdvancedView");
+            }
+        }
+        public bool IsWorking
+        {
+            get { return (bool) GetValue(IsWorkingProperty); }
+            set { SetValue(IsWorkingProperty, value); }
+
+        }
+        public Behavior BehaviorOnStartGame
+        {
+            get
+            {
+                var strValue = Settings.Default.BehaviorOnGameStart;
+                if (string.IsNullOrEmpty(strValue))
+                    return (BehaviorOnStartGame = Behavior.Nothing);
+                return (Behavior)Enum.Parse(typeof(Behavior), strValue, true);
+            }
+            set
+            {
+                Settings.Default.BehaviorOnGameStart = value.ToString();
+                Settings.Default.Save();
+                NotifyPropertyChanged("BehaviorOnStartGame");
+            }
+        }
+        public bool LaunchIfFixed
+        {
+            get { return Settings.Default.LaunchIfFixed; }
+            set
+            {
+                Settings.Default.LaunchIfFixed = value;
+                Settings.Default.Save();
+            }
         }
 
+        #endregion
+
+        #region INotifyPropertyChanged Members
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         #endregion
 
         #region Events
-        private void DgFiles_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
-            var element = e.MouseDevice.DirectlyOver;
-            if (element == null || !(element is FrameworkElement)) return;
-            if (!(((FrameworkElement) element).Parent is DataGridCell)) return;
-            var grid = sender as DataGrid;
-            if (grid == null || grid.SelectedItems == null || grid.SelectedItems.Count != 1) return;
-            var file = grid.SelectedItem as BackableFile;
-            if (file != null)
-            {
-                file.OpenFolder();
-            }
+            var cmd = (RunGameCommand) FindResource("RunGameCommand");
+            if (LaunchIfFixed && cmd.CanExecute(null))
+                cmd.Execute(BehaviorOnStartGame);
+
+            _timer = new Timer(state => RefreshTimerTick(), null, 10000, 15000);
+        }
+
+        private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
         #endregion
+
     }
 }

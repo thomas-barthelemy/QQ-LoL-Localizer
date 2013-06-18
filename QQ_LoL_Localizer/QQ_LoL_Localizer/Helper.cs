@@ -12,8 +12,30 @@ using System.Linq;
 
 namespace QQ_LoL_Localizer
 {
+
+    public enum Behavior
+    {
+        Nothing,
+        Minimize,
+        Close
+    }
+
     public class Helper
     {
+        public static bool IsWorking
+        {
+            get
+            {
+                return (bool)CurrentApp.Dispatcher.Invoke(() =>
+                    CurrentApp.MainWindow.GetValue(MainWindow.IsWorkingProperty));
+            }
+            set
+            {
+                CurrentApp.Dispatcher.Invoke(() =>
+                    CurrentApp.MainWindow.SetValue(MainWindow.IsWorkingProperty, value));
+            }
+        }
+
         public static App CurrentApp
         {
             get { return Application.Current as App; }
@@ -34,7 +56,7 @@ namespace QQ_LoL_Localizer
                         new FmodVoBankFile(),
                         new FontsMapFile(),
                         new GameLocaleFile(),
-                        new MenuFontConfig(),
+                        new MenuFontConfigFile()
                     });
             }
         }
@@ -114,36 +136,35 @@ namespace QQ_LoL_Localizer
             Refresh
         }
 
-        public static void ProcessCommand(IList items, CommandType cmdType)
+        public static void ProcessCommand(IList files, CommandType cmdType)
         {
-            CurrentApp.IsWorking = true;
-
+            IsWorking = true;
             try
             {
                 var tasks = new List<Task>();
 
-                foreach (var item in items.OfType<IFixableFile>())
+                foreach (var file in files.OfType<IFixableFile>())
                 {
                     switch (cmdType)
                     {
-                        case CommandType.Fix: tasks.Add(item.FixAsync());
+                        case CommandType.Fix: tasks.Add(file.FixAsync());
                             break;
-                        case CommandType.Restore: tasks.Add(item.RestoreAsync());
+                        case CommandType.Restore: tasks.Add(file.RestoreAsync());
                             break;
-                        case CommandType.Refresh: tasks.Add(item.RefreshAsync());
+                        case CommandType.Refresh: tasks.Add(file.RefreshAsync());
                             break;
                         default:
                             throw new ArgumentOutOfRangeException("cmdType");
                     }
                 }
-
-                Task.WhenAll(tasks).ContinueWith(t => CurrentApp.IsWorking = false);
+                Task.WhenAll(tasks)
+                    .ContinueWith(task => IsWorking = false);
             }
             catch (Exception e)
             {
                 MessageBox.Show("An error occured during the operation", "Error =(" + Environment.NewLine + e.Message, MessageBoxButton.OK,
                                 MessageBoxImage.Error);
-                CurrentApp.IsWorking = false;
+                IsWorking = false;
             }
 
         }

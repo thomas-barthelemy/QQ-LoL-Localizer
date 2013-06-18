@@ -37,8 +37,8 @@
     <PublisherName>Thomas Barthélémy</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>9</ApplicationRevision>
-    <ApplicationVersion>1.0.5.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -113,6 +113,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\OpenFileCommand.cs" />
     <Compile Include="Commands\RestoreAllCommand.cs" />
     <Compile Include="Commands\RestoreSelectedCommand.cs" />
     <Compile Include="Commands\BaseAppCommand.cs" />
@@ -120,10 +121,15 @@
     <Compile Include="Commands\FixSelectedCommand.cs" />
     <Compile Include="Commands\RefreshCommand.cs" />
     <Compile Include="Commands\RunGameCommand.cs" />
+    <Compile Include="Converters\BehaviorConverter.cs" />
+    <Compile Include="Converters\VisibilityConverter.cs" />
+    <Compile Include="Converters\FixStatusColorConverter.cs" />
+    <Compile Include="Converters\FixStatusTextConverter.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="QQFileModels\AirFontsFile.cs" />
     <Compile Include="QQFileModels\FmodVOBankFile.cs" />
     <Compile Include="QQFileModels\FmodAudioFile.cs" />
-    <Compile Include="QQFileModels\MenuFontConfig.cs" />
+    <Compile Include="QQFileModels\MenuFontConfigFile.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -143,6 +149,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\AppResourceDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

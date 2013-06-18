@@ -4,22 +4,24 @@ using System.Windows.Input;
 
 namespace QQ_LoL_Localizer.Commands
 {
-    abstract class BaseAppCommand : ICommand
+    public abstract class BaseAppCommand : ICommand
     {
-        protected DataGrid DgFiles;
-
-        protected BaseAppCommand(DataGrid dataGrid)
-        {
-            DgFiles = dataGrid;
-        }
+        protected ListView Files;
 
         public bool CanExecute(object parameter)
         {
-            return !Helper.CurrentApp.IsWorking;
+            return !Helper.IsWorking;
         }
 
-        public abstract void Execute(object parameter);
-      
+        public virtual void Execute(object parameter)
+        {
+            if (parameter == null) return;
+
+            var listView = parameter as ListView;
+            if (listView == null) return;
+
+            Files = listView;
+        }
 
         public event EventHandler CanExecuteChanged;
     }
