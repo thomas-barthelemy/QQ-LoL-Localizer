@@ -46,8 +46,11 @@ namespace QQ_LoL_Localizer
             if (gameProcess.Length > 0)
             {
                 _timer.Change(Timeout.Infinite, 15000);
-                if(BehaviorOnStartGame == Behavior.Close)
-                    Close();
+                if (BehaviorOnStartGame == Behavior.Close)
+                {
+                    Dispatcher.Invoke(Close);
+                    return;
+                }
             }
 
             var cmd = (RefreshCommand) FindResource("RefreshCommand");
@@ -163,7 +166,7 @@ namespace QQ_LoL_Localizer
         private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             var cmd = (RunGameCommand) FindResource("RunGameCommand");
-            if (LaunchIfFixed && cmd.CanExecute(null))
+            if ( LaunchIfFixed && cmd.CanExecute(null))
                 cmd.Execute(BehaviorOnStartGame);
 
             _timer = new Timer(state => RefreshTimerTick(), null, 10000, 15000);

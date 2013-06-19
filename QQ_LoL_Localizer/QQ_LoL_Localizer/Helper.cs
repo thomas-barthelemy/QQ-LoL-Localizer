@@ -26,13 +26,22 @@ namespace QQ_LoL_Localizer
         {
             get
             {
+
                 return (bool)CurrentApp.Dispatcher.Invoke(() =>
-                    CurrentApp.MainWindow.GetValue(MainWindow.IsWorkingProperty));
+                    {
+                        if (CurrentApp.MainWindow == null) return false;
+                        return CurrentApp.MainWindow.GetValue(
+                            MainWindow.IsWorkingProperty);
+                    });
             }
             set
             {
                 CurrentApp.Dispatcher.Invoke(() =>
-                    CurrentApp.MainWindow.SetValue(MainWindow.IsWorkingProperty, value));
+                    {
+                        if (CurrentApp.MainWindow == null)
+                            return;
+                        CurrentApp.MainWindow.SetValue(MainWindow.IsWorkingProperty, value);
+                    });
             }
         }
 
