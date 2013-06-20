@@ -7,7 +7,6 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Navigation;
 using Microsoft.Win32;
 using QQ_LoL_Localizer.Annotations;
@@ -21,7 +20,7 @@ namespace QQ_LoL_Localizer
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : INotifyPropertyChanged
+    public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         private Timer _timer;
 
@@ -86,7 +85,6 @@ namespace QQ_LoL_Localizer
         #region Dependency Properties
         public static readonly DependencyProperty IsWorkingProperty =
             DependencyProperty.Register("IsWorking", typeof (bool), typeof (MainWindow), new PropertyMetadata(default(bool)));
-
         #endregion
 
         #region Binding Properties
@@ -96,6 +94,7 @@ namespace QQ_LoL_Localizer
         public bool IsGameFixed
         {
             get { return FixableFiles.All(f => f.IsFixed.GetValueOrDefault(false)); }
+            set { NotifyPropertyChanged("IsGameFixed"); }
         }
         public bool IsAdvancedView
         {
@@ -159,6 +158,33 @@ namespace QQ_LoL_Localizer
         private void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
+        #region IDisposable Members
+
+        private bool _disposed;
+        protected virtual void Dispose(bool disposing)
+        {
+            // Avoid redundant calls
+            if (_disposed) return;
+
+            // Disposing managed ressources
+            if (disposing)
+            {
+                if(_timer != null)
+                    _timer.Dispose();
+            }
+            _disposed = true;
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
         #endregion
 

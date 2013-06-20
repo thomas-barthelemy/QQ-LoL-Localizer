@@ -20,12 +20,15 @@
                                         HorizontalAlignment="Center">
                                 <Label Content="Your game is" Style="{StaticResource BaseViewLabel}" />
                                 <Label Name="BaseStatusLabel"
-                                       Content="{Binding IsGameFixed, Converter={StaticResource TextStatusConverter}}"
+                                       Content="{Binding IsGameFixed, Converter={StaticResource TextStatusConverter}, Mode=OneWay}"
                                        Style="{StaticResource BaseViewLabel}"
                                        Foreground="{Binding IsGameFixed, Converter={StaticResource ColorConverter}}" />
                             </StackPanel>
                             <Button Content="Fix now" BorderThickness="0" FontSize="20" FontFamily="Segoe UI"
-                                    Visibility="{Binding IsGameFixed, Converter={StaticResource VisibilityConverter}, ConverterParameter=true}" />
+                                    Visibility="{Binding IsGameFixed, Converter={StaticResource VisibilityConverter},
+                                ConverterParameter=true, Mode=OneWay}"
+                                    Command="{StaticResource FixAllCommand}"
+                                    CommandParameter="{Binding ElementName=FilesListView}"/>
                         </StackPanel>
                     </Grid>
                     <!-- Advanced View -->

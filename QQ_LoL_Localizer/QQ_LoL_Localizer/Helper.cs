@@ -167,7 +167,18 @@ namespace QQ_LoL_Localizer
                     }
                 }
                 Task.WhenAll(tasks)
-                    .ContinueWith(task => IsWorking = false);
+                    .ContinueWith(task =>
+                    {
+                        IsWorking = false;
+
+                        CurrentApp.Dispatcher.Invoke(() =>
+                            {
+                                var mainWindow = CurrentApp.MainWindow as MainWindow;
+                                if (mainWindow == null) return;
+                                mainWindow.IsGameFixed = true;
+                            });
+
+                    });
             }
             catch (Exception e)
             {

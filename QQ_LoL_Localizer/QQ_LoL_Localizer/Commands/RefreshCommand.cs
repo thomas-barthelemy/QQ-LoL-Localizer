@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace QQ_LoL_Localizer.Commands
+﻿namespace QQ_LoL_Localizer.Commands
 {
     class RefreshCommand : BaseAppCommand
     {
