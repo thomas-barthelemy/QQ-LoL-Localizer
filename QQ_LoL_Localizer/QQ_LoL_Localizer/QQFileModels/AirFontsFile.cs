@@ -20,7 +20,11 @@ namespace QQ_LoL_Localizer.QQFileModels
                 }
                 return IsFileFixed;
             }
-            set { IsFileFixed = value; }
+            set
+            {
+                IsFileFixed = value;
+                OnPropertyChanged();
+            }
         }
         public override async Task FixAsync()
         {

@@ -25,10 +25,7 @@ namespace QQ_LoL_Localizer.Commands
         /// <param name="parameter">Data used by the command.  If the command does not require data to be passed, this object can be set to null.</param>
         public void Execute(object parameter)
         {
-            var viewItem = parameter as ListViewItem;
-            if (viewItem == null) return;
-
-            var file = viewItem.Content as BackableFile;
+            var file = parameter as BackableFile;
             if (file == null) return;
 
             file.OpenFolder();
