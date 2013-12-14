@@ -5,6 +5,11 @@ namespace QQ_LoL_Localizer.QQFileModels
 {
     class FmodVoBankFile : BackableFile
     {
+        public FmodVoBankFile()
+        {
+            IsNewFile = true;
+        }
+
         public override bool? IsFixed
         {
             get

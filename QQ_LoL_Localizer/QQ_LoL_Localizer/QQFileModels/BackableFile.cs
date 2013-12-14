@@ -8,6 +8,7 @@ namespace QQ_LoL_Localizer.QQFileModels
     public abstract class BackableFile : IFixableFile, INotifyPropertyChanged
     {
         protected bool? IsFileFixed;
+        protected bool IsNewFile;
 
         public abstract bool? IsFixed { get; set; }
         public abstract Task FixAsync();
@@ -16,11 +17,16 @@ namespace QQ_LoL_Localizer.QQFileModels
         {
             await Task.Run(() =>
             {
-                if (!File.Exists(FilePath + ".backup"))
+                if (IsNewFile && File.Exists(FilePath))
+                    File.Delete(FilePath);
+                else if (!File.Exists(FilePath + ".backup"))
                     return;
-                File.Copy(FilePath + ".backup", FilePath, true);
+                else
+                    File.Copy(FilePath + ".backup", FilePath, true);
+
                 IsFixed = null;
             });
+
         }
 
         public void Backup()

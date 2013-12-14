@@ -39,8 +39,10 @@ namespace QQ_LoL_Localizer
 
         #region Helpers
 
-        private void RefreshTimerTick()
+        private async void RefreshTimerTick()
         {
+            if (await Dispatcher.InvokeAsync(() => IsWorking)) return;
+
             var gameProcess = Process.GetProcessesByName("Lolclient");
             if (gameProcess.Length > 0)
             {

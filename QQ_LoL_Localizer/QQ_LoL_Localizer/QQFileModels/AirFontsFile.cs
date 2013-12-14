@@ -5,19 +5,23 @@ namespace QQ_LoL_Localizer.QQFileModels
 {
     class AirFontsFile : BackableFile
     {
+        public AirFontsFile()
+        {
+            IsNewFile = true;
+        }
+
         public override bool? IsFixed
         {
             get
             {
-                if (!IsFileFixed.HasValue)
-                {
-                    if (!File.Exists(FilePath))
-                        return (IsFileFixed = false);
+                if (IsFileFixed.HasValue) return IsFileFixed;
 
-                    var fileEnUs = new FileInfo(FilePath);
-                    var fileZhCn = new FileInfo(FilePath.Replace("en_US", "zh_CN"));
-                    IsFileFixed = fileEnUs.Length == fileZhCn.Length;
-                }
+                if (!File.Exists(FilePath))
+                    return (IsFileFixed = false);
+
+                var fileEnUs = new FileInfo(FilePath);
+                var fileZhCn = new FileInfo(FilePath.Replace("en_US", "zh_CN"));
+                IsFileFixed = fileEnUs.Length == fileZhCn.Length;
                 return IsFileFixed;
             }
             set

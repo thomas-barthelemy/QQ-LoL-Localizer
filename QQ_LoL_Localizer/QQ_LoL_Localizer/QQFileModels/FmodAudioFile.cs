@@ -6,6 +6,11 @@ namespace QQ_LoL_Localizer.QQFileModels
 {
     class FmodAudioFile : BackableFile
     {
+        public FmodAudioFile()
+        {
+            IsNewFile = true;
+        }
+
         public override bool? IsFixed
         {
             get
