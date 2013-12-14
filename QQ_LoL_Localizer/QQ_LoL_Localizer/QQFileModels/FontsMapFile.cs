@@ -42,6 +42,7 @@ namespace QQ_LoL_Localizer.QQFileModels
                     Helper.ReplaceInFile(FilePath, "LucasFonts-SpiegelCdOT-SemiBold.otf", "msyhbd.ttf");
 
                     // Regular fonts
+                    Helper.ReplaceInFile(FilePath, "arial.ttf", "msyh.ttf");
                     Helper.ReplaceInFile(FilePath, "ariblk.ttf", "msyh.ttf");
                     Helper.ReplaceInFile(FilePath, "verdana.ttf", "msyh.ttf");
                     Helper.ReplaceInFile(FilePath, "times.ttf", "msyh.ttf");
