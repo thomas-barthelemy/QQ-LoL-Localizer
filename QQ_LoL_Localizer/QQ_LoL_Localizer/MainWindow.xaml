@@ -1,7 +1,7 @@
 ﻿<Window x:Class="QQ_LoL_Localizer.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="{Binding Title}" Height="510" Width="510" MinHeight="360" MinWidth="500" Icon="tray.ico"
+        Height="510" Width="510" MinHeight="360" MinWidth="500" Icon="tray.ico"
         DataContext="{Binding RelativeSource={x:Static RelativeSource.Self}}"
         Loaded="MainWindow_OnLoaded">
     <Grid>

@@ -10,7 +10,7 @@ namespace QQ_LoL_Localizer.QQFileModels
             get
             {
                 if (!IsFileFixed.HasValue)
-                    IsFileFixed = File.ReadAllText(FilePath).Contains("fonts_ch.swf");
+                    IsFileFixed = !File.ReadAllText(FilePath).Contains("小");
 
                 return IsFileFixed.Value;
             }
@@ -27,13 +27,14 @@ namespace QQ_LoL_Localizer.QQFileModels
             await Task.Run(() =>
                 {
                     Backup();
+                    File.Copy(FilePath.Replace("zh_CN", "en_US"), FilePath, true);
                     Helper.ReplaceInFile(FilePath, "fonts_latin.swf", "fonts_ch.swf");
                     Helper.ReplaceInFile(FilePath, "Gill Sans MT Pro Medium", "FZLanTingHei-L-GBK");
                     IsFixed = null;
                 });
         }
 
-        public override string FilePath { get { return Path.Combine(Helper.LoLPath, "Game\\Data\\Menu\\fontconfig_en_US.txt"); } }
+        public override string FilePath { get { return Path.Combine(Helper.LoLPath, "Game\\Data\\Menu\\fontconfig_zh_CN.txt"); } }
 
     }
 }

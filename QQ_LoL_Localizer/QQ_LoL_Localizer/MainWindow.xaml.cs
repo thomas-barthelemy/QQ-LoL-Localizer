@@ -26,7 +26,9 @@ namespace QQ_LoL_Localizer
 
         public MainWindow()
         {
-            if (string.IsNullOrWhiteSpace(Settings.Default.Path) || !Directory.Exists(Settings.Default.Path))
+            if (string.IsNullOrWhiteSpace(Settings.Default.Path)
+                || !Directory.Exists(Settings.Default.Path)
+                || File.Exists(Path.Combine(Settings.Default.Path, "\\TCLS\\client.exe")))
                 if (!SetLoLPath())
                     Application.Current.Shutdown();
 
@@ -96,7 +98,11 @@ namespace QQ_LoL_Localizer
         public bool IsGameFixed
         {
             get { return FixableFiles.All(f => f.IsFixed.GetValueOrDefault(false)); }
-            set { NotifyPropertyChanged("IsGameFixed"); }
+            set
+            {
+                Console.WriteLine(value);
+                NotifyPropertyChanged("IsGameFixed");
+            }
         }
         public bool IsAdvancedView
         {
