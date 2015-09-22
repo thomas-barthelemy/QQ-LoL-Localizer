@@ -22,7 +22,10 @@ namespace QQ_LoL_Localizer.QQFileModels
                 else if (!File.Exists(FilePath + ".backup"))
                     return;
                 else
+                {
                     File.Copy(FilePath + ".backup", FilePath, true);
+                    File.Delete(FilePath + ".backup");
+                }
 
                 IsFixed = null;
             });
