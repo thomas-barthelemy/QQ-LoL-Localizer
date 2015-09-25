@@ -3,7 +3,9 @@ QQ League of Legends (LoL) Localizer
 
 This project started soon after I found ways to translate most of the Chinese League of Legends client manually, and realized that each update would reset those changes: Why not do a tool to do it for me? I then shared the tool with a few of my friends and finally decided to share it openly.
 
-I am now migrating this tool from Codeplex to Github, where it already has over 10k views and 3k downloads.
+The latest version can be downloaded in the release section:
+
+https://github.com/thomas-barthelemy/QQ-LoL-Localizer/releases
 
 What Does it do?
 ====
