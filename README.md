@@ -71,10 +71,26 @@ The heroes
 The bonus
 ===
 
-*This is something I haven't tested for a long time, worth checking but not guaranteed to work anymore.*
+*This is the old bonus system, check below for latest info*
 
-After level 5, 10, 15 and 20 you are eligible to some bonus (XP/IP Boost, runes...), to claim those bonus you have to go on http://lol.qq.com/act/a20110418gifts/ and click on the matching level.
-You will be asked to log-in and select your server.
+~~After level 5, 10, 15 and 20 you are eligible to some bonus (XP/IP Boost, runes...), to claim those bonus you have to go on http://lol.qq.com/act/a20110418gifts/ and click on the matching level.
+You will be asked to log-in and select your server.~~
+
+**2016-03-04**: Updates I received from a user (`Crushie`):
+```
+The bonus system has been reworked, and is currently 3 bonuses that update after completion or midnight.
+
+2 of the bonusses are related to gameplay:
+Get 60 minion kills in a single fight / Play 2 different heroes today / get 3 kills or assist in a single game.. stuff like that, 
+these are updated at midnight.
+The bonuses here can be a champion rent / 50, 100 or 150 IP / runes and 4 win exp or ip boost.
+
+Whereas the last bonus is related to level, level 1-10 has a bonus for each level, giving 14 days of "rent" on a hero,
+i think they are the same heroes for each account, but i can't remember the order of them
+(lower level is littered with the same heroes, which are too expensive to buy and are not on the free rotation)
+Level 8 and 11 gave tier 2 runes for ad and spellcaster, giving plenty enough to easily fill your runepage until level 17'ish.
+```
+
 
 Some commonly used language
 ====
