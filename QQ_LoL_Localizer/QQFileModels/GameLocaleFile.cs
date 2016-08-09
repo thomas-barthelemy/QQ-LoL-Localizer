@@ -12,7 +12,7 @@ namespace QQ_LoL_Localizer.QQFileModels
                 if (!IsFileFixed.HasValue)
                 {
                     var allText = File.ReadAllText(FilePath);
-                    IsFileFixed = allText.Contains("en_US");
+                    IsFileFixed = allText.Contains("LanguageLocaleRegion=en_SG");
                 }
                 return IsFileFixed.Value;
             }
@@ -29,7 +29,8 @@ namespace QQ_LoL_Localizer.QQFileModels
             await Task.Run(() =>
                 {
                     Backup();
-                    Helper.ReplaceInFile(FilePath, "zh_CN", "en_US");
+                    Helper.ReplaceInFile(FilePath, "zh_CN", "en_SG");
+                    Helper.ReplaceInFile(FilePath, "en_US", "en_SG");
                     IsFixed = null;
                 });
         }
