@@ -61,11 +61,8 @@ namespace QQ_LoL_Localizer
                         new AirLocaleFile(),
                         new AirLolFile(),
                         new AirFontsFile(),
-                        //new FmodAudioFile(),
-                        //new FmodVoBankFile(),
-                        new FontsMapFile(),
+                        new GameAudioDirectory(),
                         new GameLocaleFile(),
-                        //new MenuFontConfigFile()
                     });
             }
         }

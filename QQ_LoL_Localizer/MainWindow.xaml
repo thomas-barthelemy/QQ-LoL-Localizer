@@ -68,9 +68,6 @@
                             CommandParameter="{Binding BehaviorOnStartGame}" />
                     <!-- Global status Bar -->
                     <StatusBar Grid.Row="2">
-                        <!--<StatusBarItem Width="250">
-                            <Label x:Name="StatusLabel" />
-                        </StatusBarItem>-->
                         <StatusBarItem HorizontalContentAlignment="Stretch">
                             <ProgressBar x:Name="AppProgressBar" IsIndeterminate="{Binding IsWorking}"
                                          Height="15" />

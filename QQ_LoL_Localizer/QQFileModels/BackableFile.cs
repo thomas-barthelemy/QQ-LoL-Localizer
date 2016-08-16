@@ -9,6 +9,7 @@ namespace QQ_LoL_Localizer.QQFileModels
     {
         protected bool? IsFileFixed;
         protected bool IsNewFile;
+        protected bool IsDirectory;
 
         public abstract bool? IsFixed { get; set; }
         public abstract Task FixAsync();
@@ -17,7 +18,9 @@ namespace QQ_LoL_Localizer.QQFileModels
         {
             await Task.Run(() =>
             {
-                if (IsNewFile && File.Exists(FilePath))
+                if (IsNewFile && IsDirectory && Directory.Exists(FilePath))
+                     Directory.Delete(FilePath, true);
+                else if (IsNewFile && File.Exists(FilePath))
                     File.Delete(FilePath);
                 else if (!File.Exists(FilePath + ".backup"))
                     return;

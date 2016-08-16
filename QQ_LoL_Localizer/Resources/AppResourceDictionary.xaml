@@ -18,7 +18,7 @@
     <ContextMenu x:Key="ViewItemContextMenu">
         <MenuItem Header="Fix file" Command="{StaticResource FixSelectedCommand}"
                   CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"/>
-        <MenuItem Header="Restore file" Command="{Binding RestoreSelectedCommand}"
+        <MenuItem Header="Restore file" Command="{StaticResource RestoreSelectedCommand}"
                   CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"/>
         <MenuItem Header="Open location" Command="{StaticResource OpenFileCommand}"
                   CommandParameter="{Binding Path=SelectedItem, RelativeSource={RelativeSource FindAncestor, AncestorType=ListView}}"/>
