@@ -63,6 +63,7 @@ namespace QQ_LoL_Localizer
                         new AirFontsFile(),
                         new GameAudioDirectory(),
                         new GameLocaleFile(),
+                        new FontsMapFile()
                     });
             }
         }
