@@ -33,26 +33,26 @@ namespace QQ_LoL_Localizer.QQFileModels
             {
                 Backup();
                 // Bold Fonts
-                Helper.ReplaceInFile(FilePath, "arialbd.ttf", "msyhbd.ttf");
-                Helper.ReplaceInFile(FilePath, "verdanab.ttf", "msyhbd.ttf");
-                Helper.ReplaceInFile(FilePath, "DejaVuSans-Bold.ttf", "msyhbd.ttf");
-                Helper.ReplaceInFile(FilePath, "FRQITCBT.ttf", "msyhbd.ttf");
-                Helper.ReplaceInFile(FilePath, "Garuda-Bold.ttf", "msyhbd.ttf");
-                Helper.ReplaceInFile(FilePath, "SpiegelCDB.otf", "msyhbd.ttf");
-                Helper.ReplaceInFile(FilePath, "LucasFonts-SpiegelCdOT-SemiBold.otf", "msyhbd.ttf");
+                Helper.ReplaceInFile(FilePath, "arialbd.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "verdanab.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "DejaVuSans-Bold.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "FRQITCBT.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "Garuda-Bold.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "SpiegelCDB.otf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "LucasFonts-SpiegelCdOT-SemiBold.otf", "FZDHTK.ttf");
 
                 // Regular fonts
-                Helper.ReplaceInFile(FilePath, "arial.ttf", "msyh.ttf");
-                Helper.ReplaceInFile(FilePath, "ariblk.ttf", "msyh.ttf");
-                Helper.ReplaceInFile(FilePath, "verdana.ttf", "msyh.ttf");
-                Helper.ReplaceInFile(FilePath, "times.ttf", "msyh.ttf");
-                Helper.ReplaceInFile(FilePath, "tahoma.ttf", "msyh.ttf");
-                Helper.ReplaceInFile(FilePath, "DejaVuSans.ttf", "msyh.ttf");
-                Helper.ReplaceInFile(FilePath, "FRQITC01.ttf", "msyh.ttf");
-                Helper.ReplaceInFile(FilePath, "Garuda.ttf", "msyh.ttf");
-                Helper.ReplaceInFile(FilePath, "UTMEssendineCaps.ttf", "msyh.ttf");
-                Helper.ReplaceInFile(FilePath, "UttumDotum.ttf", "msyh.ttf");
-                Helper.ReplaceInFile(FilePath, "LucasFonts-SpiegelCdOT-Regular.otf", "msyh.ttf");
+                Helper.ReplaceInFile(FilePath, "arial.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "ariblk.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "verdana.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "times.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "tahoma.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "DejaVuSans.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "FRQITC01.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "Garuda.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "UTMEssendineCaps.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "UttumDotum.ttf", "FZDHTK.ttf");
+                Helper.ReplaceInFile(FilePath, "LucasFonts-SpiegelCdOT-Regular.otf", "FZDHTK.ttf");
                 IsFixed = null;
             });
         }
