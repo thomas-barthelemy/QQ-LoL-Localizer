@@ -58,9 +58,7 @@ namespace QQ_LoL_Localizer
             {
                 return _files ?? (_files = new ObservableCollection<IFixableFile>
                     {
-                        new AirLocaleFile(),
-                        new AirLolFile(),
-                        new AirFontsFile(),
+                        new LeagueClientConfigFile(),
                         new GameAudioDirectory(),
                         new GameLocaleFile(),
                         new FontsMapFile()

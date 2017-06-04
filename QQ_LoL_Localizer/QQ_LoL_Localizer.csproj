@@ -128,7 +128,7 @@
     <Compile Include="Converters\FixStatusColorConverter.cs" />
     <Compile Include="Converters\FixStatusTextConverter.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="QQFileModels\AirFontsFile.cs" />
+    <Compile Include="QQFileModels\LeagueClientConfigFile.cs" />
     <Compile Include="QQFileModels\GameAudioDirectory.cs" />
     <Compile Include="QQFileModels\MenuFontConfigFile.cs" />
     <Page Include="MainWindow.xaml">
@@ -140,8 +140,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Helper.cs" />
-    <Compile Include="QQFileModels\AirLocaleFile.cs" />
-    <Compile Include="QQFileModels\AirLolFile.cs" />
     <Compile Include="QQFileModels\BackableFile.cs" />
     <Compile Include="QQFileModels\FontsMapFile.cs" />
     <Compile Include="QQFileModels\GameLocaleFile.cs" />
