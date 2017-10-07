@@ -1,58 +1,12 @@
 QQ League of Legends (LoL) Localizer
 =====
 
-This project started soon after I found ways to translate most of the Chinese League of Legends client manually, and realized that each update would reset those changes: Why not do a tool to do it for me? I then shared the tool with a few of my friends and finally decided to share it openly.
-
-The latest version can be downloaded in the release section:
-
-https://github.com/thomas-barthelemy/QQ-LoL-Localizer/releases
-
-What Does it do?
-====
-The Localizer intends to provide an easy tool to modify the Chinese League of Legends client (from lol.qq.com) in order to localize and translate it in English.
-
-App details
-====
-
-Tools format
+Legacy Notes - DO NOT USE
 ===
+It seems like Tencent took active steps to prevent users from using this app and it is not only no longer working but also puts a risk on the user as they may decide to block accounts. As a result I decided to remove existing packaged executables but to leave the source code if anybody felt adventurous in trying to find a new way to make it work at their on risk.
 
-* The regular package: no installation, easy to move.
-* *Discontinued*: The ClickOnce package, auto-installer, easy to update.
 
-What this tool can achieve:
-===
-
-* The Air client localized in English (Play menus, runes, summoner's spells...)
-* In game localization in English (Items, texts) while still supporting Chinese characters (Player's name, chat...)
-* Check if any of the file necessary for this translation was change and re-apply the fix. (Deals with updates)
-
-What you won't have:
-===
-
-* Sounds in English: The audio bank file for the English language isn't complete.
-* TCLS Launcher in English: This Air launcher is made separately by the QQ team and localization is not yet supported. 
-
-What you can do for this project
-===
-
-* You are a developer? Feel free to give any advices on my code, I'm always open to improvement!
-* You found a bug? Please report it using the issue tracker, it will be fixed as soon as possible (please include all relevant information: what you were doing, when which buttons, which operating system, the error message if any...
-* You have an idea for a nice feature? Use the issue tracker or the discussion part to submit it, it will be greatly appreciated!
-* You just enjoy this free tool? Please share it with you fellow summoners, the more people are aware of this project, the better it will become!
-
-In a nutshell, if you tried playing League of Legends in China, this translate tool might save you a lot of trouble!
-
-How to use the software
-====
-
-1. Launch the TCLS client to be sure your version is up-to-date.
-2. Open the QQ LoL Localizer.
-3. If it's the first time you use it, you will have to define where is located your "TCLS\Client.exe".
-4. You should have a view of all files that need to be modified and there current state. A file marked as "Fixed" doesn't require any operation, else it needs to be fixed. To fix you can either select the file(s) you want and click on "Fix Selected" or just click on "Fix All".
-5. After an update, you might need to re-fix some of the files.
-
-Differences when playing in China
+Differences when playing in China (most likely outdated)
 ====
 
 The players
